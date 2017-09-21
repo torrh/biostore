@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'biostore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'biostore',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
-        'PORT': '3306'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd6v49htvbd8c3j',
+        'USER': 'hqprrpjufscwhs',
+        'PASSWORD': '17c47eb05ef9faa480c7a6189a31c1e306b014e9179c4ab97fa02ad8284aa1bd',
+        'HOST': 'ec2-54-221-212-208.compute-1.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
