@@ -57,9 +57,8 @@ class Consumer(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    password = models.CharField(max_length=50, default="1234")
     address = models.CharField(max_length=255)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
     phone_number = models.CharField(max_length=255)
 
 class Order(models.Model):
