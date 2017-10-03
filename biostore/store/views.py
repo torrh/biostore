@@ -34,13 +34,12 @@ class RetriveUpdateDestroyProductType(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.ProductType.objects.all()
     serializer_class = serializers.ProductTypeSerializer
 
-class ListCreateOrder(generics.ListCreateAPIView):
+class ListOrdersToProducer(generics.ListAPIView):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
 
-class ListCreateOrder_Item(generics.ListCreateAPIView):
-    queryset = models.Order_Item.objects.all()
-    serializer_class = serializers.OrderItemSerializer
+class RetrieveOrderByConsumer(generics.RetrieveAPIView):
+    serializer_class = serializers.OrderSerializer
 
-
-
+    def get_object(self):
+        return models.Order.objects.filter(consumer_id=self.kwargs.get('consumer_pk')).last()

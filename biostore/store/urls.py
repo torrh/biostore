@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^category/(?P<pk>\d+)/$', views.RetriveUpdateDestroyCategory.as_view(), name='category_detail'),
     url(r'^baseproducts/$', views.ListCreateProductType.as_view(), name='base_products'),
     url(r'^baseproducts/(?P<pk>\d+)/$', views.RetriveUpdateDestroyProductType.as_view(), name='baseproducts_detail'),
-    url(r'^orders/$', views.ListCreateOrder.as_view(), name='order_list'),
+    url(r'^orders/producer/$', views.ListOrdersToProducer.as_view(), name='order_list'),
+    url(r'^lastorder/consumer/(?P<consumer_pk>\d+)$', views.RetrieveOrderByConsumer.as_view(), name='order_by_consumer'),
 ]
