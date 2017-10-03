@@ -26,15 +26,21 @@ class RetriveUpdateDestroyCategory(generics.RetrieveUpdateDestroyAPIView):
         queryset = models.Category.objects.all()
         serializer_class = serializers.CategorySerializer
 
-
 class ListCreateProductType(generics.ListCreateAPIView):
     queryset = models.ProductType.objects.all()
     serializer_class = serializers.ProductTypeSerializer
 
-
 class RetriveUpdateDestroyProductType(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.ProductType.objects.all()
     serializer_class = serializers.ProductTypeSerializer
+
+class ListCreateOrder(generics.ListCreateAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+class ListCreateOrder_Item(generics.ListCreateAPIView):
+    queryset = models.Order_Item.objects.all()
+    serializer_class = serializers.OrderItemSerializer
 
 
 
