@@ -82,9 +82,18 @@ def consumer_details(request,email):
                'address':consumer_bd.address,
                'phone_number':consumer_bd.phone_number
                }
-        return JsonResponse({"data":res})
+        return JsonResponse({"data":data})
     return JsonResponse({"error":mensaje })
 
+class ListOrdersToProducer(generics.ListAPIView):
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+class RetrieveOrderByConsumer(generics.RetrieveAPIView):
+    serializer_class = serializers.OrderSerializer
+
+    def get_object(self):
+        return models.Order.objects.filter(consumer_id=self.kwargs.get('consumer_pk')).last()
 
 
 

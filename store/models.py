@@ -61,9 +61,22 @@ class Consumer(models.Model):
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
 
+class PaymentType(models.Model):
+    title = models.CharField(max_length=255)
+
+class Payment(models.Model):
+    amount = models.FloatField()
+    state = models.BooleanField()
+    paymentType = models.ForeignKey(PaymentType)
+
+class Order_Item(models.Model):
+    count = models.IntegerField()
+    product = models.ForeignKey(Product)
+
 class Order(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     delivery_at = models.DateField()
     shipping_address = models.CharField(max_length=255)
     consumer = models.ForeignKey(Consumer)
-    products = models.ManyToManyField(Product)
+    order_item = models.ManyToManyField(Order_Item)
+    payment = models.ForeignKey(Payment, default=0)
