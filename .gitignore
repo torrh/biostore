@@ -1,0 +1,9 @@
+.idea
+.idea/
+.idea/workspace.xml
+biostore/store/__init__.pyc
+biostore/store/admin.pyc
+biostore/store/migrations/0001_initial.py
+biostore/store/migrations/0001_initial.pyc
+biostore/store/migrations/__init__.pyc
+biostore/store/models.pyc
