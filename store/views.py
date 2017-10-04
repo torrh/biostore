@@ -68,6 +68,24 @@ def login(request):
     return JsonResponse({"mensaje": mensaje})
 
 
+@csrf_exempt
+def consumer_details(request,email):
+    mensaje="Consumer not found"
+    if request.method=='GET':
+
+        consumer_bd = Consumer.objects.get(email=email)
+
+        if consumer_bd.email ==  email:
+            data = {'name':consumer_bd.name,
+               'last_name':consumer_bd.last_name,
+               'email':email,
+               'address':consumer_bd.address,
+               'phone_number':consumer_bd.phone_number
+               }
+        return JsonResponse({"data":res})
+    return JsonResponse({"error":mensaje })
+
+
 
 
 
