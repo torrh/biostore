@@ -10,6 +10,7 @@ from .models import Payment
 from .models import Order
 from .models import  Consumer
 from .models import Order_Item
+from .models import Producer
 
 # Register your models here.
 
@@ -21,3 +22,4 @@ admin.site.register(Payment)
 admin.site.register(Order)
 admin.site.register(Consumer)
 admin.site.register(Order_Item)
+admin.site.register(Producer)

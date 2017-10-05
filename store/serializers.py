@@ -45,7 +45,8 @@ class ProductOrderSerializer(serializers.ModelSerializer):
         fields = (
             'unit_type',
             'productType',
-            'category'
+            'category',
+            'producer'
         )
         model = models.Product
 
@@ -69,25 +70,24 @@ class PaymentSerializer(serializers.ModelSerializer):
         )
         model = models.Payment
 
-class OrderItemSerializer(serializers.ModelSerializer):
-
-    product = ProductOrderSerializer(read_only=True)
-
-    class Meta:
-        fields = (
-            'count',
-            'product'
-        )
-        model = models.Order_Item
-
 class OrderSerializer(serializers.ModelSerializer):
-
-    order_item = OrderItemSerializer(read_only=True, many=True)
 
     class Meta:
         fields = (
             'delivery_at',
             'shipping_address',
-            'order_item',
         )
         model = models.Order
+
+class OrderItemSerializer(serializers.ModelSerializer):
+
+    product = ProductOrderSerializer(read_only=True)
+    order = OrderSerializer(read_only=True)
+
+    class Meta:
+        fields = (
+            'count',
+            'product',
+            'order'
+        )
+        model = models.Order_Item

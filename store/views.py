@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Category, Consumer
 from django.http import HttpResponse, JsonResponse
 from rest_framework import generics
+from django.db.models import Q
 
 from . import models
 from . import serializers
@@ -85,9 +86,12 @@ def consumer_details(request,email):
         return JsonResponse({"data":data})
     return JsonResponse({"error":mensaje })
 
-class ListOrdersToProducer(generics.ListAPIView):
-    queryset = models.Order.objects.all()
-    serializer_class = serializers.OrderSerializer
+class ListOrderItemsToProducer(generics.ListAPIView):
+    queryset = models.Order_Item.objects.all()
+    serializer_class = serializers.OrderItemSerializer
+
+    def get_queryset(self):
+        return models.Order_Item.objects.filter(Q(product__producer_id=self.kwargs.get('producer_pk')))
 
 class RetrieveOrderByConsumer(generics.RetrieveAPIView):
     serializer_class = serializers.OrderSerializer
