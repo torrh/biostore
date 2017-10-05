@@ -79,4 +79,4 @@ class Order(models.Model):
     shipping_address = models.CharField(max_length=255)
     consumer = models.ForeignKey(Consumer)
     order_item = models.ManyToManyField(Order_Item)
-    payment = models.ForeignKey(Payment, default=0)
+    payment = models.ForeignKey(Payment)
