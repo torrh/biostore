@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Category, Consumer
@@ -60,13 +61,21 @@ def register_consumer(request):
 @csrf_exempt
 def login(request):
     mensaje='error'
+    data = 'none'
     if request.method =='POST':
-        email = request.POST.get('email')
-        password= request.POST.get('password')
+        json_data =  json.loads(request.body)
+        email = json_data['email']
+        password=json_data['password']
         consumer_bd = Consumer.objects.get(email=email)
         if consumer_bd.password == password:
             mensaje='ok'
-    return JsonResponse({"mensaje": mensaje})
+            data= {'name': consumer_bd.name,
+                     'last_name': consumer_bd.last_name,
+                     'email': email,
+                     'address': consumer_bd.address,
+                     'phone_number': consumer_bd.phone_number
+                     }
+    return JsonResponse({"estado": mensaje,"data":data})
 
 
 @csrf_exempt
