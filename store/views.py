@@ -4,10 +4,12 @@ from __future__ import unicode_literals
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Category, Consumer
+from .models import Category, Consumer,Product, ProductType
 from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 from rest_framework import generics
 from django.db.models import Q
+from itertools import chain
 
 from . import models
 from . import serializers
@@ -95,6 +97,7 @@ def consumer_details(request,email):
         return JsonResponse({"data":data})
     return JsonResponse({"error":mensaje })
 
+
 class ListOrderItemsToProducer(generics.ListAPIView):
     queryset = models.Order_Item.objects.all()
     serializer_class = serializers.OrderItemSerializer
@@ -109,7 +112,9 @@ class RetrieveOrderByConsumer(generics.RetrieveAPIView):
         return models.Order.objects.filter(consumer_id=self.kwargs.get('consumer_pk')).last()
 
 
-
+class ListCreateProductByCategoty(generics.ListCreateAPIView):
+    queryset = models.Product.objects.all()
+    serializer_class = serializers.ProductCategorySerializer
 
 
 

@@ -91,3 +91,18 @@ class OrderItemSerializer(serializers.ModelSerializer):
             'order'
         )
         model = models.Order_Item
+
+
+class ProductCategorySerializer(serializers.ModelSerializer):
+
+    productType = ProductTypeSerializer(read_only=True)
+    category =  CategorySerializer(read_only=True)
+
+    class Meta:
+        fields = (
+            'unit_type',
+            'productType',
+            'category',
+            'unit_price'
+        )
+        model= models.Product
