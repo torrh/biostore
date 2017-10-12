@@ -11,44 +11,22 @@ class ProductTypeSerializer(serializers.ModelSerializer):
         )
         model = models.ProductType
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'title',
-            'url',
-        )
-        model = models.Category
-
-class ProductSerializer(serializers.ModelSerializer):
+class ProducerOfferSerializer(serializers.ModelSerializer):
 
     productType = ProductTypeSerializer(read_only=True)
-    category = CategorySerializer(read_only=True);
 
     class Meta:
         fields = (
-            'create_at',
+            'modifiable',
+            'stage',
             'unit_price',
             'count',
             'unit_type',
             'available_at',
             'productType',
-            'category'
-        )
-        model = models.Product
-
-class ProductOrderSerializer(serializers.ModelSerializer):
-
-    productType = ProductTypeSerializer(read_only=True)
-    category = CategorySerializer(read_only=True);
-
-    class Meta:
-        fields = (
-            'unit_type',
-            'productType',
-            'category',
             'producer'
         )
-        model = models.Product
+        model = models.ProducerOffer
 
 class PaymentTypeSerializer(serializers.ModelSerializer):
 
@@ -81,13 +59,13 @@ class OrderSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    product = ProductOrderSerializer(read_only=True)
+    productType = ProductTypeSerializer(read_only=True)
     order = OrderSerializer(read_only=True)
 
     class Meta:
         fields = (
             'count',
-            'product',
+            'productType',
             'order'
         )
         model = models.Order_Item

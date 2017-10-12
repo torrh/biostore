@@ -24,34 +24,21 @@ class Producer(models.Model):
     longitude = models.FloatField()
     phone_number = models.CharField(max_length=255)
 
-class Product(models.Model):
-    create_at = models.DateTimeField(auto_now_add=True)
-    unit_price = models.FloatField()
-    count = models.IntegerField()
-    unit_type = models.CharField(max_length=255)
-    available_at = models.DateField()
-    productType = models.ForeignKey(ProductType)
-    category = models.ForeignKey(Category)
-    producer = models.ForeignKey(Producer, default=1)
-
 class Administrator(models.Model):
     name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField()
 
-class Cooperative(models.Model):
-    administrator = models.ForeignKey(Administrator)
-
-class CommonOffer(models.Model):
+class ProducerOffer(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
-    delivery_at = models.DateField()
-    products = models.ManyToManyField(Product)
-
-class ProducerOffer(CommonOffer):
+    modifiable =  models.BooleanField()
+    stage = models.TextField()
+    unit_price = models.FloatField()
+    count = models.IntegerField()
+    unit_type = models.CharField(max_length=255)
+    available_at = models.DateField()
+    productType = models.ForeignKey(ProductType)
     producer = models.ForeignKey(Producer)
-
-class CooperativeOffer(CommonOffer):
-    cooperative = models.ForeignKey(Cooperative)
 
 class Consumer(models.Model):
     uid = models.FloatField()
@@ -79,11 +66,5 @@ class Order(models.Model):
 
 class Order_Item(models.Model):
     count = models.IntegerField()
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey(ProductType)
     order = models.ForeignKey(Order, default=1)
-
-
-
-
-
-
