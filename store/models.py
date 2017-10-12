@@ -31,8 +31,8 @@ class Administrator(models.Model):
 
 class ProducerOffer(models.Model):
     create_at = models.BigIntegerField()
-    modifiable =  models.BooleanField()
-    stage = models.TextField()
+    editable = models.BooleanField()
+    state = models.TextField()
     unit_price = models.FloatField()
     count = models.IntegerField()
     unit_type = models.CharField(max_length=255)
@@ -68,3 +68,12 @@ class Order_Item(models.Model):
     count = models.IntegerField()
     product = models.ForeignKey(ProductType)
     order = models.ForeignKey(Order, default=1)
+
+
+class AdminOffer(models.Model):
+    create_at = models.BigIntegerField()
+    unit_price = models.FloatField()
+    count = models.IntegerField()
+    unit_type = models.CharField(max_length=255)
+    delivery_date = models.BigIntegerField()
+    productType = models.ForeignKey(ProductType)

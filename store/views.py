@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Category, Consumer, ProductType, ProducerOffer
+from .models import Category, Consumer, ProductType, ProducerOffer, AdminOffer
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers as jsonserializer
 from rest_framework import generics
@@ -122,12 +122,40 @@ def create_offer_producer(request):
         modificable =  True
         estado = 'PENDIENTE'
         mensaje = 'ok'
-        consumer_bd =  ProducerOffer.objects.create(create_at=fechaCreacion,modifiable=modificable,stage=estado,
+        consumer_bd =  ProducerOffer.objects.create(create_at=fechaCreacion,editable=modificable,state=estado,
                                                     unit_price=precio, count= cantidad, unit_type=unidad,available_at=fechaEntrega,
                                                     producer_id=productor,productType_id=producto)
         consumer_bd.save();
     return JsonResponse({"estado": mensaje, "data": data})
 
+@csrf_exempt
 def give_all_producersoffers(request):
     offers = ProducerOffer.objects.all()
+    return HttpResponse(jsonserializer.serialize("json", offers))
+
+
+@csrf_exempt
+def create_offer_admin(request):
+    mensaje = 'error'
+    data = 'none'
+    print request.body
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        producto = json_data['idProductNewOffer']
+        cantidad = json_data['amountNewOffer']
+        precio =  json_data['priceNewOffer']
+        unidad = json_data['unit']
+        fechaCreacion = json_data['createdAt']
+        fechaEntrega = json_data['deliveryDateNewOffer']
+
+        mensaje = 'ok'
+        consumer_bd =  AdminOffer.objects.create(create_at=fechaCreacion,
+                                                    unit_price=precio, count= cantidad, unit_type=unidad,delivery_date=fechaEntrega
+                                                    ,productType_id=producto)
+        consumer_bd.save();
+    return JsonResponse({"estado": mensaje, "data": data})
+
+@csrf_exempt
+def give_all_adminoffers(request):
+    offers = AdminOffer.objects.all()
     return HttpResponse(jsonserializer.serialize("json", offers))
