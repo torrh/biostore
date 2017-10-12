@@ -76,7 +76,7 @@ def consumer_details(request,email):
                }
         return JsonResponse({"data":data})
     return JsonResponse({"error":mensaje })
-
+@csrf_exempt
 def prueba(request):
     if request.method=='POST':
         return JsonResponse({"estado":"ok"})
@@ -99,7 +99,7 @@ class RetrieveOrderByConsumer(generics.RetrieveAPIView):
 
 
 
-
+@csrf_exempt
 def all(request):
     products = ProductType.objects.all();
 
