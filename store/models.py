@@ -30,13 +30,13 @@ class Administrator(models.Model):
     email = models.EmailField()
 
 class ProducerOffer(models.Model):
-    create_at = models.DateTimeField(auto_now_add=True)
+    create_at = models.BigIntegerField()
     modifiable =  models.BooleanField()
     stage = models.TextField()
     unit_price = models.FloatField()
     count = models.IntegerField()
     unit_type = models.CharField(max_length=255)
-    available_at = models.DateField()
+    available_at = models.BigIntegerField()
     productType = models.ForeignKey(ProductType)
     producer = models.ForeignKey(Producer)
 
@@ -58,8 +58,8 @@ class Payment(models.Model):
     paymentType = models.ForeignKey(PaymentType)
 
 class Order(models.Model):
-    create_at = models.DateTimeField(auto_now_add=True)
-    delivery_at = models.DateField()
+    create_at = models.BigIntegerField()
+    delivery_at = models.BigIntegerField()
     shipping_address = models.CharField(max_length=255)
     consumer = models.ForeignKey(Consumer)
     payment = models.ForeignKey(Payment)

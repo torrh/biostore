@@ -5,6 +5,9 @@ urlpatterns = [
     url(r'^orders/producer/(?P<producer_pk>\d+)$', views.ListOrderItemsToProducer.as_view(), name='orders_items'),
     url(r'^prueba/$', views.prueba, name="prueba "),
     url(r'^allproducts/$', views.all, name="todos los productos"),
+#PRODUCTORES
+    url(r'^addproduceroffer/$', views.create_offer_producer, name ="Crear oferta productor"),
+    url(r'^producersoffers/$', views.give_all_producersoffers, name="Dar todas las ofertas"),
     url(r'^baseproducts/$', views.ListCreateProductType.as_view(), name='base_products'),
     url(r'^baseproducts/(?P<pk>\d+)/$', views.RetriveUpdateDestroyProductType.as_view(), name='baseproducts_detail'),
     url(r'^user/$', views.register_consumer,name='register_consumer'),
