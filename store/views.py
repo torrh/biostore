@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Category, Consumer
+from .models import Category, Consumer, ProductType
 from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 from rest_framework import generics
 from django.db.models import Q
+from itertools import chain
 
 from . import models
 from . import serializers
@@ -40,13 +43,21 @@ def register_consumer(request):
 @csrf_exempt
 def login(request):
     mensaje='error'
+    data = 'none'
     if request.method =='POST':
-        email = request.POST.get('email')
-        password= request.POST.get('password')
+        json_data =  json.loads(request.body)
+        email = json_data['email']
+        password=json_data['password']
         consumer_bd = Consumer.objects.get(email=email)
         if consumer_bd.password == password:
             mensaje='ok'
-    return JsonResponse({"mensaje": mensaje})
+            data= {'name': consumer_bd.name,
+                     'last_name': consumer_bd.last_name,
+                     'email': email,
+                     'address': consumer_bd.address,
+                     'phone_number': consumer_bd.phone_number
+                     }
+    return JsonResponse({"estado": mensaje,"data":data})
 
 
 @csrf_exempt
@@ -66,6 +77,7 @@ def consumer_details(request,email):
         return JsonResponse({"data":data})
     return JsonResponse({"error":mensaje })
 
+
 class ListOrderItemsToProducer(generics.ListAPIView):
     queryset = models.Order_Item.objects.all()
     serializer_class = serializers.OrderItemSerializer
@@ -78,8 +90,6 @@ class RetrieveOrderByConsumer(generics.RetrieveAPIView):
 
     def get_object(self):
         return models.Order.objects.filter(consumer_id=self.kwargs.get('consumer_pk')).last()
-
-
 
 
 
