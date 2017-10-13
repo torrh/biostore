@@ -66,6 +66,7 @@ class AdminOfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
+            'id',
             'unit_price',
             'unit_type',
             'productType'
@@ -78,6 +79,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
+            'id',
             'delivery_at',
             'shipping_address',
             'consumer'
