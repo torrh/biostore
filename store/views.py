@@ -9,6 +9,7 @@ from django.http import HttpResponse, JsonResponse
 from django.core import serializers as jsonserializer
 from rest_framework import generics
 from django.db.models import Q
+from django.shortcuts import get_list_or_404, get_object_or_404
 from itertools import chain
 
 from . import models
@@ -159,3 +160,36 @@ def create_offer_admin(request):
 def give_all_adminoffers(request):
     offers = AdminOffer.objects.all()
     return HttpResponse(jsonserializer.serialize("json", offers))
+
+@csrf_exempt
+def create_order(request):
+    mensaje = 'error'
+    data = 'none'
+
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        create_at_data = json_data['create_at']
+        delivery_at_data  = json_data['delivery_at']
+        shipping_address_data = json_data['shipping_address']
+        consumer_data = json_data['consumer_id']
+        order_items = json_data['order_items']
+
+        order_bd = models.Order.objects.create(create_at=create_at_data,
+                                               delivery_at=delivery_at_data, shipping_address=shipping_address_data,
+                                               consumer_id=consumer_data)
+        order_bd.save()
+
+        for order_item in order_items:
+            count_order = order_item['count']
+            offer_order = order_item['offer_id']
+
+            offer = models.AdminOffer.objects.get(id=offer_order)
+            offer.count = int(offer.count) - int(count_order)  # actualiza la cantidad de la oferta
+            offer.save()
+
+            order_item = models.Order_Item.objects.create(count=count_order, offer_id=offer_order, order_id=order_bd.id)
+            order_item.save()
+
+        mensaje = 'ok'
+
+    return JsonResponse({"estado": mensaje, "data": data})

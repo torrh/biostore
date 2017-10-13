@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^addadminoffer/$', views.create_offer_admin, name="Crear oferta administrador"),
     url(r'^adminoffers/$', views.give_all_adminoffers, name="Dar todas las ofertas administrador"),
     url(r'^baseproducts/$', views.ListCreateProductType.as_view(), name='base_products'),
+    url(r'^createorder/$', views.create_order, name='create_order'),
     url(r'^baseproducts/(?P<pk>\d+)/$', views.RetriveUpdateDestroyProductType.as_view(), name='baseproducts_detail'),
     url(r'^user/$', views.register_consumer,name='register_consumer'),
     url(r'^login/$', views.login,name='login_consumer'),

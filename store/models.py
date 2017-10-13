@@ -57,19 +57,6 @@ class Payment(models.Model):
     state = models.BooleanField()
     paymentType = models.ForeignKey(PaymentType)
 
-class Order(models.Model):
-    create_at = models.BigIntegerField()
-    delivery_at = models.BigIntegerField()
-    shipping_address = models.CharField(max_length=255)
-    consumer = models.ForeignKey(Consumer)
-    payment = models.ForeignKey(Payment)
-
-class Order_Item(models.Model):
-    count = models.IntegerField()
-    product = models.ForeignKey(ProductType)
-    order = models.ForeignKey(Order, default=1)
-
-
 class AdminOffer(models.Model):
     create_at = models.BigIntegerField()
     unit_price = models.FloatField()
@@ -77,3 +64,14 @@ class AdminOffer(models.Model):
     unit_type = models.CharField(max_length=255)
     delivery_date = models.BigIntegerField()
     productType = models.ForeignKey(ProductType)
+
+class Order(models.Model):
+    create_at = models.BigIntegerField()
+    delivery_at = models.BigIntegerField()
+    shipping_address = models.CharField(max_length=255)
+    consumer = models.ForeignKey(Consumer)
+
+class Order_Item(models.Model):
+    count = models.IntegerField()
+    offer = models.ForeignKey(AdminOffer, default=1)
+    order = models.ForeignKey(Order, default=1)
