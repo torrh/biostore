@@ -89,9 +89,6 @@ class ListOrderItemsToProducer(generics.ListAPIView):
     queryset = models.Order_Item.objects.all()
     serializer_class = serializers.OrderItemSerializer
 
-    def get_queryset(self):
-        return models.Order_Item.objects.filter(Q(product__producer_id=self.kwargs.get('producer_pk')))
-
 class RetrieveOrderByConsumer(generics.RetrieveAPIView):
     serializer_class = serializers.OrderSerializer
 
@@ -193,3 +190,8 @@ def create_order(request):
         mensaje = 'ok'
 
     return JsonResponse({"estado": mensaje, "data": data})
+
+
+class ListOrderItems(generics.ListAPIView):
+    queryset = models.Order_Item.objects.all()
+    serializer_class = serializers.OrderItemSerializer
