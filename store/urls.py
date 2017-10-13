@@ -13,6 +13,8 @@ urlpatterns = [
     url(r'^createorder/$', views.create_order, name='create_order'),
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
 #ADMINSTRADOR
+    url(r'^offersbyproducer/(?P<id>\d+)/$',views.getoffersbyproductorbyid, name="Ofertas de un productor"),
+    url(r'^acceptedoffers/$',views.getacceptedproduceroffers, name="Dar ofertas aceptadas productores"),
     url(r'^saveoffers/$',views.save_producer_offers, name="Guardar ofertas productores"),
     url(r'^addadminoffer/$', views.create_offer_admin, name="Crear oferta administrador"),
     url(r'^adminoffers/$', views.give_all_adminoffers, name="Dar todas las ofertas administrador"),

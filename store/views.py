@@ -234,3 +234,13 @@ def getproducerbyid(request, id):
                              "lastname":total.last_name,"address":total.address,"latitude":total.latitude,
                              "longitude":total.longitude,"phone_number":total.phone_number})
 
+def getacceptedproduceroffers(request):
+    total = ProducerOffer.objects.filter(state="ACEPTADA")
+    return HttpResponse(jsonserializer.serialize("json", total))
+
+
+def getoffersbyproductorbyid(request,id):
+    if request.method =='GET':
+        response = ProducerOffer.objects.filter(producer_id=id)
+        print len(response)
+        return HttpResponse(jsonserializer.serialize("json", response))
