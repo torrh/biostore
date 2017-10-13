@@ -8,8 +8,11 @@ urlpatterns = [
 #PRODUCTORES
     url(r'^addproduceroffer/$', views.create_offer_producer, name ="Crear oferta productor"),
     url(r'^producersoffers/$', views.give_all_producersoffers, name="Dar todas las ofertas"),
-#ADMINSTRADOR
+#CONSUMER
+    url(r'^createorder/$', views.create_order, name='create_order'),
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
+#ADMINSTRADOR
+
     url(r'^addadminoffer/$', views.create_offer_admin, name="Crear oferta administrador"),
     url(r'^adminoffers/$', views.give_all_adminoffers, name="Dar todas las ofertas administrador"),
     url(r'^baseproducts/$', views.ListCreateProductType.as_view(), name='base_products'),
@@ -19,7 +22,6 @@ urlpatterns = [
     url(r'(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',views.consumer_details,name='consumer_details'),
     url(r'^lastorder/consumer/(?P<consumer_pk>\d+)$', views.RetrieveOrderByConsumer.as_view(),
         name='order_by_consumer'),
-#CONSUMER
-    url(r'^createorder/$', views.create_order, name='create_order'),
+
 
 ]
