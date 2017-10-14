@@ -250,4 +250,10 @@ def getoffersbyproductorbyid(request,id):
 
         return HttpResponse( jsonserializer.serialize("json", response ))
 
+class RetriveUpdateDestroyProductOffer(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.ProducerOffer.objects.all()
+    serializer_class = serializers.ProducerOfferSerializer
 
+class ListProducerOffers(generics.ListAPIView):
+    queryset = models.ProducerOffer.objects.all()
+    serializer_class = serializers.ProducerAllOfferSerializer

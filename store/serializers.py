@@ -17,8 +17,38 @@ class ProducerOfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
-            'modifiable',
-            'stage',
+            'editable',
+            'state',
+            'unit_price',
+            'count',
+            'unit_type',
+            'available_at',
+            'productType',
+        )
+        model = models.ProducerOffer
+
+class ProducerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = (
+            'email',
+            'name',
+            'last_name',
+            'address',
+            'phone_number'
+        )
+
+        model = models.Producer
+
+class ProducerAllOfferSerializer(serializers.ModelSerializer):
+
+    productType = ProductTypeSerializer(read_only=True)
+    producer = ProducerSerializer(read_only=True)
+
+    class Meta:
+        fields = (
+            'editable',
+            'state',
             'unit_price',
             'count',
             'unit_type',
