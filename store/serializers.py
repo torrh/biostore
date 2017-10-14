@@ -17,6 +17,7 @@ class ProducerOfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
+            'id',
             'editable',
             'state',
             'unit_price',
@@ -47,7 +48,9 @@ class ProducerAllOfferSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
+            'id',
             'editable',
+            'create_at',
             'state',
             'unit_price',
             'count',
