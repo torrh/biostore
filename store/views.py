@@ -242,5 +242,12 @@ def getacceptedproduceroffers(request):
 def getoffersbyproductorbyid(request,id):
     if request.method =='GET':
         response = ProducerOffer.objects.filter(producer_id=id)
-        print len(response)
-        return HttpResponse(jsonserializer.serialize("json", response))
+
+        for obj in response:
+            product = ProductType.objects.get(id=obj.productType_id)
+            title = product.title
+
+
+        return HttpResponse( jsonserializer.serialize("json", response ))
+
+

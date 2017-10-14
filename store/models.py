@@ -40,6 +40,7 @@ class ProducerOffer(models.Model):
     productType = models.ForeignKey(ProductType)
     producer = models.ForeignKey(Producer)
 
+
 class Consumer(models.Model):
     uid = models.FloatField()
     email = models.EmailField()
