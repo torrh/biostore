@@ -225,7 +225,7 @@ def save_producer_offers(request):
             c = ProducerOffer.objects.get(id=cuid)
             c.state = 'CANCELADA'
             c.save()
-
+    return JsonResponse({"estado":"ok"})
 
 def getproducerbyid(request, id):
     if request.method == 'GET':
