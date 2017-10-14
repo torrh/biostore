@@ -117,6 +117,9 @@ class AdminOfferSerializer(serializers.ModelSerializer):
             'id',
             'unit_price',
             'unit_type',
+            'count',
+            'create_at',
+            'delivery_date',
             'productType'
         )
         model = models.AdminOffer
