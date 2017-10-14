@@ -11,9 +11,23 @@ class ProductTypeSerializer(serializers.ModelSerializer):
         )
         model = models.ProductType
 
+class ProducerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = (
+            'email',
+            'name',
+            'last_name',
+            'address',
+            'phone_number'
+        )
+
+        model = models.Producer
+
 class ProducerOfferSerializer(serializers.ModelSerializer):
 
     productType = ProductTypeSerializer(read_only=True)
+    producer = ProducerSerializer(read_only=True)
 
     class Meta:
         fields = (
@@ -24,6 +38,7 @@ class ProducerOfferSerializer(serializers.ModelSerializer):
             'unit_type',
             'available_at',
             'productType',
+            'producer',
         )
         model = models.ProducerOffer
 

@@ -5,15 +5,6 @@ from django.db import models
 
 # Create your models here.
 
-class ProductType(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    url = models.CharField(max_length=1000)
-
-class Category(models.Model):
-    title = models.CharField(max_length=255)
-    url = models.CharField(max_length=1000)
-
 class Producer(models.Model):
     uid = models.FloatField()
     email = models.EmailField()
@@ -23,6 +14,17 @@ class Producer(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     phone_number = models.CharField(max_length=255)
+
+class ProductType(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    url = models.CharField(max_length=1000)
+    producer = models.ForeignKey(Producer, default=1)
+
+class Category(models.Model):
+    title = models.CharField(max_length=255)
+    url = models.CharField(max_length=1000)
+
 
 class Administrator(models.Model):
     name = models.CharField(max_length=255)

@@ -2,13 +2,14 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^orders/producer/(?P<producer_pk>\d+)$', views.ListOrderItemsToProducer.as_view(), name='orders_items'),
+    url(r'^offersproducer/(?P<producer_pk>\d+)$', views.ListOffersByProducer.as_view(), name='orders_by_producer'),
     url(r'^prueba/$', views.prueba, name="prueba "),
     url(r'^allproducts/$', views.all, name="todos los productos"),
 #PRODUCTORES
     url(r'^addproduceroffer/$', views.create_offer_producer, name ="Crear oferta productor"),
     url(r'^producersoffers/$', views.ListProducerOffers.as_view(), name="Dar todas las ofertas"),
     url(r'^getproducerbyid/(?P<id>\d+)/$',views.getproducerbyid, name="Dar productor por id"),
+    url(r'^ordersbyproducer/(?P<producer_pk>\d+)/$', views.ListOrderItemsToProducer.as_view(), name='orders_items'),
 
 #CONSUMER
     url(r'^createorder/$', views.create_order, name='create_order'),

@@ -90,11 +90,12 @@ def prueba(request):
     else:
         return JsonResponse({"estado": "ok"})
 
-
 class ListOrderItemsToProducer(generics.ListAPIView):
     queryset = models.Order_Item.objects.all()
     serializer_class = serializers.OrderItemSerializer
 
+    def get_queryset(self):
+        return models.Order_Item.objects.filter(Q(offer__productType__producer_id=self.kwargs.get('producer_pk')))
 
 class RetrieveOrderByConsumer(generics.RetrieveAPIView):
     serializer_class = serializers.OrderSerializer
@@ -238,7 +239,6 @@ def getacceptedproduceroffers(request):
     total = ProducerOffer.objects.filter(state="ACEPTADA")
     return HttpResponse(jsonserializer.serialize("json", total))
 
-
 def getoffersbyproductorbyid(request,id):
     if request.method =='GET':
         response = ProducerOffer.objects.filter(producer_id=id)
@@ -246,7 +246,6 @@ def getoffersbyproductorbyid(request,id):
         for obj in response:
             product = ProductType.objects.get(id=obj.productType_id)
             title = product.title
-
 
         return HttpResponse( jsonserializer.serialize("json", response ))
 
@@ -257,3 +256,10 @@ class RetriveUpdateDestroyProductOffer(generics.RetrieveUpdateDestroyAPIView):
 class ListProducerOffers(generics.ListAPIView):
     queryset = models.ProducerOffer.objects.all()
     serializer_class = serializers.ProducerAllOfferSerializer
+
+class ListOffersByProducer(generics.ListAPIView):
+    queryset = models.ProducerOffer.objects.all()
+    serializer_class = serializers.ProducerAllOfferSerializer
+
+    def get_queryset(self):
+        return models.ProducerOffer.objects.filter(producer_id=self.kwargs.get('producer_pk'))
