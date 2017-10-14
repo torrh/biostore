@@ -11,6 +11,7 @@ from .models import  Consumer
 from .models import Order_Item
 from .models import Producer
 from .models import ProducerOffer
+from .models import AdminOffer
 
 # Register your models here.
 
@@ -23,3 +24,4 @@ admin.site.register(Consumer)
 admin.site.register(Order_Item)
 admin.site.register(Producer)
 admin.site.register(ProducerOffer)
+admin.site.register(AdminOffer)

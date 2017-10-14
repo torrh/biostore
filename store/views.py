@@ -171,6 +171,8 @@ def give_all_adminoffers(request):
     return HttpResponse(jsonserializer.serialize("json", offers))
 
 
+
+
 @csrf_exempt
 def create_order(request):
     mensaje = 'error'
@@ -228,6 +230,8 @@ def save_producer_offers(request):
             c.save()
     return JsonResponse({"estado":"ok"})
 
+
+@csrf_exempt
 def getproducerbyid(request, id):
     if request.method == 'GET':
         total = Producer.objects.get(uid=id)
@@ -235,10 +239,14 @@ def getproducerbyid(request, id):
                              "lastname":total.last_name,"address":total.address,"latitude":total.latitude,
                              "longitude":total.longitude,"phone_number":total.phone_number})
 
+
+@csrf_exempt
 def getacceptedproduceroffers(request):
     total = ProducerOffer.objects.filter(state="ACEPTADA")
     return HttpResponse(jsonserializer.serialize("json", total))
 
+
+@csrf_exempt
 def getoffersbyproductorbyid(request,id):
     if request.method =='GET':
         response = ProducerOffer.objects.filter(producer_id=id)
@@ -263,3 +271,7 @@ class ListOffersByProducer(generics.ListAPIView):
 
     def get_queryset(self):
         return models.ProducerOffer.objects.filter(producer_id=self.kwargs.get('producer_pk'))
+
+class ListAdminOffersItems(generics.ListAPIView):
+    queryset = models.AdminOffer.objects.all()
+    serializer_class = serializers.AdminOfferSerializer
