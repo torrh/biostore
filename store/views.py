@@ -42,12 +42,13 @@ def register_consumer(request):
         address = json_data['address']
 
         phone_number = json_data['phone_number']
-        new_consumer = Consumer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
+        if not Consumer.objects.get(email=email):
+            new_consumer = Consumer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
                                                password=password,
                                                phone_number=phone_number)
-        new_consumer.save();
-        mensaje = 'ok'
-        data = {'name': name,
+            new_consumer.save();
+            mensaje = 'ok'
+            data = {'name': name,
                 'last_name': lastname,
                 'email': email,
                 'address': address,
