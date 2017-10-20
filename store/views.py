@@ -30,19 +30,30 @@ class RetriveUpdateDestroyProductType(generics.RetrieveUpdateDestroyAPIView):
 
 @csrf_exempt
 def register_consumer(request):
+    mensaje = 'error'
+    data = 'none'
     if request.method == 'POST':
-        uid = request.POST.get('cedula')
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        lastname = request.POST.get('lastname')
-        password = request.POST.get('password')
-        address = request.POST.get('address')
+        json_data = json.loads(request.body)
+        uid = json_data['uid']
+        name = json_data['name']
+        email = json_data['email']
+        lastname = json_data['lastname']
+        password = json_data['password']
+        address = json_data['address']
 
-        phone_number = request.POST.get('phone_number')
+        phone_number = json_data['phone_number']
         new_consumer = Consumer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
                                                password=password,
                                                phone_number=phone_number)
         new_consumer.save();
+        mensaje = 'ok'
+        data = {'name': name,
+                'last_name': lastname,
+                'email': email,
+                'address': address,
+                'phone_number': phone_number
+         }
+        return JsonResponse({"estado": mensaje, "data": data})
 
 
 @csrf_exempt
