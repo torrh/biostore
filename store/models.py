@@ -51,6 +51,7 @@ class Consumer(models.Model):
     password = models.CharField(max_length=50, default="1234")
     address = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
+    type= models.CharField(max_length=15, default="CLIENTE")
 
 class PaymentType(models.Model):
     title = models.CharField(max_length=255)
