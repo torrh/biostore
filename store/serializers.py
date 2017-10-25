@@ -133,7 +133,8 @@ class OrderSerializer(serializers.ModelSerializer):
             'id',
             'delivery_at',
             'shipping_address',
-            'consumer'
+            'consumer',
+            'state'
         )
         model = models.Order
 

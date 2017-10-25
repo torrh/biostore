@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^producersoffers/$', views.ListProducerOffers.as_view(), name="Dar todas las ofertas"),
     url(r'^getproducerbyid/(?P<id>\d+)/$',views.getproducerbyid, name="Dar productor por id"),
     url(r'^ordersbyproducer/(?P<producer_pk>\d+)/$', views.ListOrderItemsToProducer.as_view(), name='orders_items'),
+    url(r'^updatepartialorder/(?P<pk>\d+)/$', views.updatePartialOrder.as_view(), name='update state order'),
 
 #CONSUMER
     url(r'^createorder/$', views.create_order, name='create_order'),

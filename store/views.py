@@ -7,10 +7,11 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Category, Consumer, ProductType, ProducerOffer, AdminOffer, Producer
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers as jsonserializer
-from rest_framework import generics
+from rest_framework import generics, status
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from itertools import chain
+from rest_framework.response import Response
 
 from . import models
 from . import serializers
@@ -289,3 +290,17 @@ class ListOffersByProducer(generics.ListAPIView):
 class ListAdminOffersItems(generics.ListAPIView):
     queryset = models.AdminOffer.objects.all()
     serializer_class = serializers.AdminOfferSerializer
+
+class updatePartialOrder(generics.UpdateAPIView):
+
+    queryset = models.Order.objects.all()
+    serializer_class = serializers.OrderSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = serializers.OrderSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

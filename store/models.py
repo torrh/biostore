@@ -74,6 +74,7 @@ class Order(models.Model):
     delivery_at = models.BigIntegerField()
     shipping_address = models.CharField(max_length=255)
     consumer = models.ForeignKey(Consumer)
+    state = models.TextField(default="PENDIENTE")
 
 class Order_Item(models.Model):
     count = models.IntegerField()
