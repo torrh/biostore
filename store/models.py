@@ -80,3 +80,6 @@ class Order_Item(models.Model):
     count = models.IntegerField()
     offer = models.ForeignKey(AdminOffer, default=1)
     order = models.ForeignKey(Order, default=1)
+
+class Sales_Parameters(models.Model):
+    profit_margin = models.FloatField()

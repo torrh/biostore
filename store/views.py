@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Category, Consumer, ProductType, ProducerOffer, AdminOffer, Producer
+from .models import Category, Consumer, ProductType, ProducerOffer, AdminOffer, Producer, Sales_Parameters
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers as jsonserializer
 from rest_framework import generics, status
@@ -304,3 +304,26 @@ class updatePartialOrder(generics.UpdateAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+def suggested_retail_price(request):
+
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+
+        parameters = Sales_Parameters.objects.last()
+
+        price = json_data['precio_producto']
+        amount = json_data['cantidad_oferta']
+
+        marketing = 15000
+        shipping = 3000
+        cost = int(price) * int(amount)
+
+        total = cost + marketing + shipping
+        unit_cost = total / amount
+
+        retail_price = round(unit_cost / (1 - parameters.profit_margin))
+
+        return JsonResponse({"precio_venta": retail_price})
