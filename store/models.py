@@ -11,9 +11,11 @@ class Producer(models.Model):
     name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.CharField(max_length=255,default='0.0.0')
+    longitude = models.CharField(max_length=255,default='0.0.0')
     phone_number = models.CharField(max_length=255)
+    url = models.CharField(max_length=1000, default='store.img')
+    farmurl=models.CharField(max_length=1000, default='farm.img')
 
 class ProductType(models.Model):
     title = models.CharField(max_length=255)
@@ -68,6 +70,7 @@ class AdminOffer(models.Model):
     unit_type = models.CharField(max_length=255)
     delivery_date = models.BigIntegerField()
     productType = models.ForeignKey(ProductType)
+    producers= models.ManyToManyField(Producer)
 
 class Order(models.Model):
     create_at = models.BigIntegerField()

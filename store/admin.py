@@ -14,6 +14,9 @@ from .models import ProducerOffer
 from .models import AdminOffer
 
 # Register your models here.
+class ProducerDisplay(admin.ModelAdmin):
+    list_display = ('uid','name','last_name')
+    search_fields = ['name']
 
 admin.site.register(ProductType)
 admin.site.register(Category)
@@ -22,6 +25,6 @@ admin.site.register(Payment)
 admin.site.register(Order)
 admin.site.register(Consumer)
 admin.site.register(Order_Item)
-admin.site.register(Producer)
+admin.site.register(Producer, ProducerDisplay)
 admin.site.register(ProducerOffer)
 admin.site.register(AdminOffer)

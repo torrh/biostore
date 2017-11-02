@@ -304,3 +304,47 @@ class updatePartialOrder(generics.UpdateAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+def register_producer(request):
+    mensaje = 'error'
+    data = 'none'
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+
+        uid = json_data['uid']
+        name = json_data['name']
+        email = json_data['email']
+        lastname = json_data['lastname']
+        password = json_data['password']
+        address = json_data['address']
+        latitude = json_data['latitude']
+        longitude = json_data['longitude ']
+        phone_number = json_data['phone_number']
+
+        new_producer = Producer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
+                                               password=password,
+                                               phone_number=phone_number,latitude=latitude,longitude=longitude )
+        new_producer.save();
+        mensaje = 'ok'
+        data = {'name': name,
+                'last_name': lastname,
+                'email': email,
+                'address': address,
+                'phone_number': phone_number,
+                'latitude': latitude,
+                'longitude': longitude
+         }
+        return JsonResponse({"estado": mensaje, "data": data})
+
+def producersdetailbyname(request, id):
+    mensaje = 'error'
+    data = 'none'
+    producers = models.ProducerOffer.objects.filter(producer=id)
+    return HttpResponse(jsonserializer.serialize("json", producers))
+
+@csrf_exempt
+def give_all_producers(request):
+    list_producers = Producer.objects.all()
+    return HttpResponse(jsonserializer.serialize("json", list_producers))

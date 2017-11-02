@@ -2,14 +2,7 @@ from rest_framework import serializers
 
 from . import models
 
-class ProductTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'title',
-            'description',
-            'url',
-        )
-        model = models.ProductType
+
 
 class ProducerSerializer(serializers.ModelSerializer):
 
@@ -19,15 +12,28 @@ class ProducerSerializer(serializers.ModelSerializer):
             'name',
             'last_name',
             'address',
-            'phone_number'
+            'phone_number',
+            'url',
+            'farmurl'
         )
 
         model = models.Producer
 
+class ProductTypeSerializer(serializers.ModelSerializer):
+    producer = ProducerSerializer(read_only=True)
+    class Meta:
+        fields = (
+            'title',
+            'description',
+            'url',
+            'producer'
+        )
+        model = models.ProductType
+
 class ProducerOfferSerializer(serializers.ModelSerializer):
 
     productType = ProductTypeSerializer(read_only=True)
-    producer = ProducerSerializer(read_only=True)
+
 
     class Meta:
         fields = (
@@ -39,8 +45,8 @@ class ProducerOfferSerializer(serializers.ModelSerializer):
             'unit_type',
             'available_at',
             'productType',
-            'producer',
-        )
+
+           )
         model = models.ProducerOffer
 
 class ProducerSerializer(serializers.ModelSerializer):
@@ -120,7 +126,9 @@ class AdminOfferSerializer(serializers.ModelSerializer):
             'count',
             'create_at',
             'delivery_date',
-            'productType'
+            'productType',
+            'producers'
+
         )
         model = models.AdminOffer
 

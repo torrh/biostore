@@ -15,7 +15,9 @@ urlpatterns = [
 #CONSUMER
     url(r'^createorder/$', views.create_order, name='create_order'),
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
+    url(r'^producers/$', views.give_all_producers, name='get all producers'),
 #ADMINSTRADOR
+    url(r'^productproducers/(?P<id>\d+)/$',views.producersdetailbyname, name="Dar productores de un producto por id"),
     url(r'^offersbyproducer/(?P<id>\d+)/$',views.getoffersbyproductorbyid, name="Ofertas de un productor"),
     url(r'^acceptedoffers/$',views.getacceptedproduceroffers, name="Dar ofertas aceptadas productores"),
     url(r'^saveoffers/$',views.save_producer_offers, name="Guardar ofertas productores"),
