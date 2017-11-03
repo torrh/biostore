@@ -326,13 +326,14 @@ def register_producer(request):
         url = json_data['url']
         farmurl = json_data['farmurl']
 
-
-        new_producer = Producer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
+        num_results = Producer.objects.filter(email=email).count()
+        if num_results == 0:
+            new_producer = Producer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
                                                password=password,
                                                phone_number=phone_number,latitude=latitude,longitude=longitude, url=url,farmurl=farmurl )
-        new_producer.save();
-        mensaje = 'ok'
-        data = {'name': name,
+            new_producer.save();
+            mensaje = 'ok'
+            data = {'name': name,
                 'last_name': lastname,
                 'email': email,
                 'address': address,
