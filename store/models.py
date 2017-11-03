@@ -10,6 +10,7 @@ class Producer(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    password = models.CharField(max_length=50, default="1234")
     address = models.CharField(max_length=255)
     latitude = models.CharField(max_length=255,default='0.0.0')
     longitude = models.CharField(max_length=255,default='0.0.0')

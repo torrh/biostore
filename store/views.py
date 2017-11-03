@@ -313,19 +313,23 @@ def register_producer(request):
     if request.method == 'POST':
         json_data = json.loads(request.body)
 
-        uid = json_data['uid']
+        uid = Producer.objects.latest('uid').uid +1
+        print(uid)
         name = json_data['name']
         email = json_data['email']
         lastname = json_data['lastname']
         password = json_data['password']
         address = json_data['address']
         latitude = json_data['latitude']
-        longitude = json_data['longitude ']
+        longitude = json_data['longitude']
         phone_number = json_data['phone_number']
+        url = json_data['url']
+        farmurl = json_data['farmurl']
+
 
         new_producer = Producer.objects.create(uid=uid, name=name, last_name=lastname, email=email, address=address,
                                                password=password,
-                                               phone_number=phone_number,latitude=latitude,longitude=longitude )
+                                               phone_number=phone_number,latitude=latitude,longitude=longitude, url=url,farmurl=farmurl )
         new_producer.save();
         mensaje = 'ok'
         data = {'name': name,
@@ -334,7 +338,9 @@ def register_producer(request):
                 'address': address,
                 'phone_number': phone_number,
                 'latitude': latitude,
-                'longitude': longitude
+                'longitude': longitude,
+                'url':url,
+                'farmurl':farmurl
          }
         return JsonResponse({"estado": mensaje, "data": data})
 
