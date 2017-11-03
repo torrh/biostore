@@ -348,3 +348,5 @@ def producersdetailbyname(request, id):
 def give_all_producers(request):
     list_producers = Producer.objects.all()
     return HttpResponse(jsonserializer.serialize("json", list_producers))
+
+
