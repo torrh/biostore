@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
     url(r'^producers/$', views.give_all_producers, name='get all producers'),
 #ADMINSTRADOR
+    url(r'^editadminoffer/', views.edit_adminoffer, name="Editar oferta admin"),
     url(r'^addproducer/', views.register_producer, name="Registrar productor"),
     url(r'^productproducers/(?P<id>\d+)/$',views.producersdetailbyname, name="Dar productores de un producto por id"),
     url(r'^offersbyproducer/(?P<id>\d+)/$',views.getoffersbyproductorbyid, name="Ofertas de un productor"),

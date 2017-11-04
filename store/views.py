@@ -355,3 +355,21 @@ def producersdetailbyname(request, id):
 def give_all_producers(request):
     list_producers = Producer.objects.all()
     return HttpResponse(jsonserializer.serialize("json", list_producers))
+
+@csrf_exempt
+def edit_adminoffer(request):
+    mensaje ='error'
+
+    json_data = json.loads(request.body)
+    id = json_data['id']
+    cantidad = json_data['cantidad']
+    precio = json_data['precio']
+    Offer = AdminOffer.objects.get(id=id)
+
+    if cantidad>0:
+          Offer.count =  cantidad
+    if precio>0:
+            Offer.unit_price = precio
+    Offer.save()
+    mensaje="ok"
+    return JsonResponse({"estado": mensaje})

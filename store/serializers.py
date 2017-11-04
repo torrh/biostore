@@ -20,13 +20,13 @@ class ProducerSerializer(serializers.ModelSerializer):
         model = models.Producer
 
 class ProductTypeSerializer(serializers.ModelSerializer):
-    producer = ProducerSerializer(read_only=True)
+
     class Meta:
         fields = (
             'title',
             'description',
-            'url',
-            'producer'
+            'url'
+
         )
         model = models.ProductType
 
@@ -57,7 +57,9 @@ class ProducerSerializer(serializers.ModelSerializer):
             'name',
             'last_name',
             'address',
-            'phone_number'
+            'phone_number',
+            'url',
+            'farmurl'
         )
 
         model = models.Producer
@@ -117,7 +119,7 @@ class ConsumerSerializer(serializers.ModelSerializer):
 class AdminOfferSerializer(serializers.ModelSerializer):
 
     productType = ProductTypeSerializer(read_only=True)
-
+    producer = ProducerSerializer(read_only=True)
     class Meta:
         fields = (
             'id',
@@ -127,6 +129,7 @@ class AdminOfferSerializer(serializers.ModelSerializer):
             'create_at',
             'delivery_date',
             'productType',
+            'producer',
             'producers'
 
         )
