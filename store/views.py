@@ -383,12 +383,9 @@ def edit_adminoffer(request):
 
     json_data = json.loads(request.body)
     id = json_data['id']
-    cantidad = json_data['cantidad']
     precio = json_data['precio']
     Offer = AdminOffer.objects.get(id=id)
 
-    if cantidad>0:
-          Offer.count =  cantidad
     if precio>0:
             Offer.unit_price = precio
     Offer.save()
