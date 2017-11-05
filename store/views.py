@@ -373,3 +373,22 @@ def edit_adminoffer(request):
     Offer.save()
     mensaje="ok"
     return JsonResponse({"estado": mensaje})
+
+@csrf_exempt
+def update_state_orders(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        acceptedIds = json_data['acceptedIds']
+        canceledIds = json_data['canceledIds']
+        for accepted in acceptedIds:
+            print accepted
+            uid = accepted['id']
+            p = models.Order.objects.get(id=uid)
+            p.state = 'ACEPTADA'
+            p.save()
+        for canceled in canceledIds:
+            cuid = canceled['id']
+            c = models.Order.objects.get(id=cuid)
+            c.state = 'CANCELADA'
+            c.save()
+    return JsonResponse({"estado":"ok"})
