@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^getproducerbyid/(?P<id>\d+)/$',views.getproducerbyid, name="Dar productor por id"),
     url(r'^ordersbyproducer/(?P<producer_pk>\d+)/$', views.ListOrderItemsToProducer.as_view(), name='orders_items'),
     url(r'^updatepartialorder/(?P<pk>\d+)/$', views.updatePartialOrder.as_view(), name='update state order'),
+    url(r'^updatestateorder/$',views.update_state_orders, name="Actualizar estado ordenes"),
 
 #CONSUMER
     url(r'^createorder/$', views.create_order, name='create_order'),
