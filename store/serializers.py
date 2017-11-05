@@ -129,8 +129,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'id',
             'delivery_at',
             'shipping_address',
-            'consumer',
-            'state'
+            'consumer'
         )
         model = models.Order
 
@@ -141,8 +140,11 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
+            'id',
+            'state',
             'count',
             'offer',
             'order'
         )
         model = models.Order_Item
+

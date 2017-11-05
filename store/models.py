@@ -78,10 +78,10 @@ class Order(models.Model):
     delivery_at = models.BigIntegerField()
     shipping_address = models.CharField(max_length=255)
     consumer = models.ForeignKey(Consumer)
-    state = models.TextField(default="PENDIENTE")
     payment = models.ForeignKey(Payment, default=1)
 
 class Order_Item(models.Model):
     count = models.IntegerField()
     offer = models.ForeignKey(AdminOffer, default=1)
     order = models.ForeignKey(Order, default=1)
+    state = models.TextField(default="PENDIENTE")

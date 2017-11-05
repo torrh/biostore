@@ -7,3 +7,4 @@ biostore/store/migrations/0001_initial.py
 biostore/store/migrations/0001_initial.pyc
 biostore/store/migrations/__init__.pyc
 biostore/store/models.pyc
+*.pyc
