@@ -3,22 +3,6 @@ from rest_framework import serializers
 from . import models
 
 
-
-class ProducerSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        fields = (
-            'email',
-            'name',
-            'last_name',
-            'address',
-            'phone_number',
-            'url',
-            'farmurl'
-        )
-
-        model = models.Producer
-
 class ProductTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -59,7 +43,9 @@ class ProducerSerializer(serializers.ModelSerializer):
             'address',
             'phone_number',
             'url',
-            'farmurl'
+            'farmurl',
+            'latitude',
+            'longitude',
         )
 
         model = models.Producer
@@ -119,7 +105,7 @@ class ConsumerSerializer(serializers.ModelSerializer):
 class AdminOfferSerializer(serializers.ModelSerializer):
 
     productType = ProductTypeSerializer(read_only=True)
-    producer = ProducerSerializer(read_only=True)
+    producers = ProducerSerializer(read_only=True, many=True)
     class Meta:
         fields = (
             'id',
@@ -129,7 +115,6 @@ class AdminOfferSerializer(serializers.ModelSerializer):
             'create_at',
             'delivery_date',
             'productType',
-            'producer',
             'producers'
 
         )
