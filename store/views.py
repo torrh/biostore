@@ -200,10 +200,31 @@ def create_order(request):
         shipping_address_data = json_data['shipping_address']
         consumer_data = json_data['consumer_id']
         order_items = json_data['order_items']
+        paymentType = json_data['paymentType']
+
+        paymentTypeObj = models.PaymentType.objects.get(id=paymentType)
+
+        print "BIO 1"
+        amount = 0
+
+        for order_item in order_items:
+            count_order = order_item['count']
+            offer_order = order_item['offer_id']
+
+            print count_order
+            print offer_order
+            offer = models.AdminOffer.objects.get(id=offer_order)
+            unit_price = offer.unit_price
+            amount += (int(offer.count) * int(unit_price))
+
+        payment = models.Payment.objects.create(amount=amount, state="PENDIENTE", paymentType=paymentTypeObj)
+        payment.save()
+
+        print "BIO 2"
 
         order_bd = models.Order.objects.create(create_at=create_at_data,
                                                delivery_at=delivery_at_data, shipping_address=shipping_address_data,
-                                               consumer_id=consumer_data)
+                                               consumer_id=consumer_data, payment=payment)
         order_bd.save()
 
         for order_item in order_items:
@@ -391,4 +412,20 @@ def update_state_orders(request):
             c = models.Order.objects.get(id=cuid)
             c.state = 'CANCELADA'
             c.save()
+    return JsonResponse({"estado":"ok"})
+
+@csrf_exempt
+def update_payment_orders(request):
+    print "update_payment_orders"
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        paidIds = json_data['paidIds']
+        for paid in paidIds:
+            uid = paid['id']
+            order = models.Order.objects.get(id=uid)
+
+            payment = models.Payment.objects.get(id=order.payment.id)
+            payment.state = "PAGADO"
+            payment.save()
+
     return JsonResponse({"estado":"ok"})

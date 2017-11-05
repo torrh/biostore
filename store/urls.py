@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
     url(r'^producers/$', views.give_all_producers, name='get all producers'),
 #ADMINSTRADOR
+    url(r'^updatepaymentorder/$', views.update_payment_orders, name="actualizar pagos administrador"),
     url(r'^editadminoffer/', views.edit_adminoffer, name="Editar oferta admin"),
     url(r'^addproducer/', views.register_producer, name="Registrar productor"),
     url(r'^productproducers/(?P<id>\d+)/$',views.producersdetailbyname, name="Dar productores de un producto por id"),
@@ -33,6 +34,7 @@ urlpatterns = [
     url(r'(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',views.consumer_details,name='consumer_details'),
     url(r'^lastorder/consumer/(?P<consumer_pk>\d+)$', views.RetrieveOrderByConsumer.as_view(),
         name='order_by_consumer'),
+
 
 
 ]

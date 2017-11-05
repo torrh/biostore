@@ -61,7 +61,7 @@ class PaymentType(models.Model):
 
 class Payment(models.Model):
     amount = models.FloatField()
-    state = models.BooleanField()
+    state = models.TextField(default="PENDIENTE")
     paymentType = models.ForeignKey(PaymentType)
 
 class AdminOffer(models.Model):
@@ -79,6 +79,7 @@ class Order(models.Model):
     shipping_address = models.CharField(max_length=255)
     consumer = models.ForeignKey(Consumer)
     state = models.TextField(default="PENDIENTE")
+    payment = models.ForeignKey(Payment, default=1)
 
 class Order_Item(models.Model):
     count = models.IntegerField()
