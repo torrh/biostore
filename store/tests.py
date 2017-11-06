@@ -26,6 +26,9 @@ class EditOfferTestCase(TestCase):
 
 
     def test_editoffer(self):
-        precio = AdminOffer.objects.get(id=id).unit_price
-        self.assertEqual( precio, "5000")
+        actual = AdminOffer.objects.get(id=id)
+        actual.unit_price = 5000
+        actual.save()
+        peticion = AdminOffer.objects.get(id=id)
+        self.assertEqual( peticion.unit_price, "5000")
 
