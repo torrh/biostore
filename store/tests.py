@@ -15,5 +15,8 @@ class  ProducerTestCase(TestCase):
                                                phone_number="1234",latitude="0",longitude="0", url="url",farmurl="farmurl" )
      def test_addedproducer(self):
         producer = Producer.objects.get(name="test")
-        self.assertEqual(producer.last_name, "t")
+        self.assertEqual(producer.last_name, "test")
+        self.assertEqual(producer.email, "test@test.com")
+        self.assertEqual(producer.password, "test")
+        self.assertEqual(producer.phone_number, "1234")
 
