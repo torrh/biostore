@@ -204,7 +204,7 @@ def create_order(request):
 
         paymentTypeObj = models.PaymentType.objects.get(id=paymentType)
 
-        print "BIO 1"
+
         amount = 0
 
         for order_item in order_items:

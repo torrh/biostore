@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 
 # Create your tests here.
-from .models import Producer
+from .models import Producer, AdminOffer
 
 
 class  ProducerTestCase(TestCase):
@@ -19,4 +19,13 @@ class  ProducerTestCase(TestCase):
         self.assertEqual(producer.email, "test@test.com")
         self.assertEqual(producer.password, "test")
         self.assertEqual(producer.phone_number, "1234")
+
+class EditOfferTestCase(TestCase):
+    def setUp(self):
+        id = 1
+
+
+    def test_editoffer(self):
+        precio = AdminOffer.objects.get(id=id).unit_price
+        self.assertEqual( precio, "5000")
 
