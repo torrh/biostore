@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'(?P<email>\w+|[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$',views.consumer_details,name='consumer_details'),
     url(r'^lastorder/consumer/(?P<consumer_pk>\d+)$', views.RetrieveOrderByConsumer.as_view(),
         name='order_by_consumer'),
+    url(r'^cancelorderitem/(?P<pk>\d+)/$', views.cancelOrderItem.as_view(), name='Cancel order item'),
 
 
 

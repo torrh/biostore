@@ -429,7 +429,7 @@ def update_payment_orders(request):
     return JsonResponse({"estado":"ok"})
 
 
-class updateStateOrderItem(generics.UpdateAPIView):
+class cancelOrderItem(generics.UpdateAPIView):
     queryset = models.Order_Item.objects.all()
     serializer_class = serializers.OrderItemSerializer
 
