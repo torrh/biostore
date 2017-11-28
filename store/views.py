@@ -402,15 +402,25 @@ def update_state_orders(request):
         for accepted in acceptedIds:
             print accepted
             uid = accepted['id']
-            p = models.Order_Item.objects.get(id=uid)
-            p.state = 'ACEPTADA'
-            p.save()
+            order_item = models.Order_Item.objects.get(id=uid)
+            order_item.state = 'ACEPTADA'
+            order_item.save()
         for canceled in canceledIds:
+
             cuid = canceled['id']
-            c = models.Order_Item.objects.get(id=cuid)
-            c.state = 'CANCELADA'
-            c.save()
+            order_item = models.Order_Item.objects.get(id=cuid)
+            order_item.state = 'CANCELADA'
+            order_item.save()
+
+            update_offer_stock(order_item)
+
     return JsonResponse({"estado":"ok"})
+
+def update_offer_stock(order_item):
+    offer_id = order_item.offer
+    offer = models.AdminOffer.objects.get(id=offer_id)
+    offer.count = int(offer.count) + int(order_item.count)  # actualiza la cantidad de la oferta
+    offer.save()
 
 @csrf_exempt
 def update_payment_orders(request):
