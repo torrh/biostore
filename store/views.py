@@ -12,6 +12,8 @@ from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from itertools import chain
 from rest_framework.response import Response
+from django.core.mail import send_mail
+
 
 from . import models
 from . import serializers
@@ -454,6 +456,7 @@ class cancelOrderItem(generics.UpdateAPIView):
 
 @csrf_exempt
 def add_notification(request):
+
     if request.method == 'POST':
         json_data = json.loads(request.body)
         title = json_data['title']
@@ -462,6 +465,19 @@ def add_notification(request):
 
         actual = Notification.objects.create(title=title, text=text, img=img)
         actual.save()
+        consumidores =  Consumer.objects.all()
+        var = ""
+        for consumidor in consumidores:
+            print consumidor.email
+            send_mail(
+                'Descuentos',
+                title,
+                'discounts@biostore.com',
+                [consumidor.email],
+                fail_silently=False,
+
+
+        )
         return JsonResponse({"estado": "ok"})
 
 @csrf_exempt
@@ -473,7 +489,10 @@ def get_notification(request):
             'text':res.text,
             'img':res.img
             }
+
     return JsonResponse({"estado": mensaje, "data": data})
 
 
 
+def cancel_orders(request):
+    json_data = json.loads(request.body)

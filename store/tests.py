@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 
 # Create your tests here.
-from .models import Producer, AdminOffer, Notification
+from .models import Producer, AdminOffer, Notification, Order
 
 
 class  ProducerTestCase(TestCase):
@@ -47,6 +47,14 @@ class addNotification(TestCase):
         nueva = Notification.objects.create(title="prueba", text="prueba", img="prueba")
         nueva.save()
         self.assertEqual(len(vieja)+1,len(nueva))
+
+class orderManagement(TestCase):
+    def test_delete_order(self):
+        id = 1
+        order = Order.objects.get(id=id)
+        order.delete()
+
+        self.assertEqual("undefined", Order.objects.get(id=id))
 
 
 

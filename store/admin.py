@@ -18,7 +18,9 @@ from .models import Notification
 class ProducerDisplay(admin.ModelAdmin):
     list_display = ('uid','name','last_name')
     search_fields = ['name']
-
+class NotificationDisplay(admin.ModelAdmin):
+    list_display = ('title', 'text', 'img')
+    search_fields = ['title']
 admin.site.register(ProductType)
 admin.site.register(Category)
 admin.site.register(PaymentType)
@@ -29,4 +31,4 @@ admin.site.register(Order_Item)
 admin.site.register(Producer, ProducerDisplay)
 admin.site.register(ProducerOffer)
 admin.site.register(AdminOffer)
-admin.site.register(Notification)
+admin.site.register(Notification, NotificationDisplay)
