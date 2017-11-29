@@ -85,3 +85,8 @@ class Order_Item(models.Model):
     offer = models.ForeignKey(AdminOffer, default=1)
     order = models.ForeignKey(Order, default=1)
     state = models.TextField(default="PENDIENTE")
+
+class Notification(models.Model):
+    title =  models.TextField()
+    text  = models.TextField()
+    img   = models.TextField()

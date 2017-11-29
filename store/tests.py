@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 
 # Create your tests here.
-from .models import Producer, AdminOffer
+from .models import Producer, AdminOffer, Notification
 
 
 class  ProducerTestCase(TestCase):
@@ -31,4 +31,30 @@ class EditOfferTestCase(TestCase):
         actual.save()
         peticion = AdminOffer.objects.get(id=id)
         self.assertEqual( peticion.unit_price, "5000")
+
+
+class addNotification(TestCase):
+    def setUp(self):
+        id = 1
+
+    def test_add_notification(self):
+        nueva = Notification.objects.create(title="prueba", text="prueba", img="prueba")
+        buscado = Notification.objects.get(id=1)
+        self.assertEqual(nueva.title, buscado.title)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
