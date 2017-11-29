@@ -28,6 +28,9 @@ urlpatterns = [
     url(r'^addadminoffer/$', views.create_offer_admin, name="Crear oferta administrador"),
     url(r'^adminoffers/$', views.ListAdminOffersItems.as_view(), name="Dar todas las ofertas administrador"),
     url(r'^baseproducts/$', views.ListCreateProductType.as_view(), name='base_products'),
+    #CANCELAR PEDIDOS
+    url(r'^cancelorders/$', views.cancel_orders, name='cancelar pedidos'),
+
     #NOTIFICATIONS
     url(r'^addnotification/$', views.add_notification, name='add notification'),
     url(r'^notifications/$', views.get_notification, name='get notification'),
