@@ -12,6 +12,7 @@ from .models import Order_Item
 from .models import Producer
 from .models import ProducerOffer
 from .models import AdminOffer
+from .models import Notification
 
 # Register your models here.
 class ProducerDisplay(admin.ModelAdmin):
@@ -28,3 +29,4 @@ admin.site.register(Order_Item)
 admin.site.register(Producer, ProducerDisplay)
 admin.site.register(ProducerOffer)
 admin.site.register(AdminOffer)
+admin.site.register(Notification)

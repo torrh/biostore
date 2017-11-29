@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import json
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Category, Consumer, ProductType, ProducerOffer, AdminOffer, Producer
+from .models import Category, Consumer, ProductType, ProducerOffer, AdminOffer, Producer, Notification
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers as jsonserializer
 from rest_framework import generics, status
@@ -451,3 +451,15 @@ class cancelOrderItem(generics.UpdateAPIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+def add_notification(request):
+    if request.method == 'POST':
+        json_data = json.loads(request.body)
+        title = json_data['title']
+        text  = json_data['text']
+        img   = json_data['img']
+
+        actual = Notification.objects.create(title=title, text=text, img=img)
+        actual.save()
+        return JsonResponse({"estado": "ok"})
