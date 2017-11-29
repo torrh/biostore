@@ -463,3 +463,17 @@ def add_notification(request):
         actual = Notification.objects.create(title=title, text=text, img=img)
         actual.save()
         return JsonResponse({"estado": "ok"})
+
+@csrf_exempt
+def get_notification(request):
+    noti = Notification.objects.all()
+    res = noti[len(noti)-1]
+    mensaje = 'ok'
+    data = {'title':res.title,
+            'text':res.text,
+            'img':res.img
+            }
+    return JsonResponse({"estado": mensaje, "data": data})
+
+
+
