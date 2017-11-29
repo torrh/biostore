@@ -42,6 +42,11 @@ class addNotification(TestCase):
         buscado = Notification.objects.get(id=1)
         self.assertEqual(nueva.title, buscado.title)
 
+    def test_get_all_notifications(self):
+        vieja = Notification.objects.get.all()
+        nueva = Notification.objects.create(title="prueba", text="prueba", img="prueba")
+        nueva.save()
+        self.assertEqual(len(vieja)+1,len(nueva))
 
 
 
