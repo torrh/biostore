@@ -419,8 +419,7 @@ def update_state_orders(request):
     return JsonResponse({"estado":"ok"})
 
 def update_offer_stock(order_item):
-    offer_id = order_item.offer
-    offer = models.AdminOffer.objects.get(id=offer_id)
+    offer = order_item.offer
     offer.count = int(offer.count) + int(order_item.count)  # actualiza la cantidad de la oferta
     offer.save()
 
