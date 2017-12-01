@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^createorder/$', views.create_order, name='create_order'),
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
     url(r'^producers/$', views.give_all_producers, name='get all producers'),
+
 #ADMINSTRADOR
     url(r'^updatepaymentorder/$', views.update_payment_orders, name="actualizar pagos administrador"),
     url(r'^editadminoffer/', views.edit_adminoffer, name="Editar oferta admin"),
@@ -29,7 +30,7 @@ urlpatterns = [
     url(r'^adminoffers/$', views.ListAdminOffersItems.as_view(), name="Dar todas las ofertas administrador"),
     url(r'^baseproducts/$', views.ListCreateProductType.as_view(), name='base_products'),
     #CANCELAR PEDIDOS
-    url(r'^cancelorders/$', views.cancel_orders, name='cancelar pedidos'),
+
 
     #NOTIFICATIONS
     url(r'^addnotification/$', views.add_notification, name='add notification'),

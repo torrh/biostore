@@ -404,17 +404,20 @@ def update_state_orders(request):
         for accepted in acceptedIds:
             print accepted
             uid = accepted['id']
-            order_item = models.Order_Item.objects.get(id=uid)
-            order_item.state = 'ACEPTADA'
-            order_item.save()
+            order_item = models.Order_Item.objects.filter(order_id=uid)
+            for item in order_item:
+                item.state = 'ENTREGADA'
+                item.save()
+                update_offer_stock(item)
         for canceled in canceledIds:
-
             cuid = canceled['id']
-            order_item = models.Order_Item.objects.get(id=cuid)
-            order_item.state = 'CANCELADA'
-            order_item.save()
+            order_items = models.Order_Item.objects.filter(order_id=cuid)
+            for it in order_items:
+                it.state = 'CANCELADA'
+                it.save()
+                update_offer_stock(it)
 
-            update_offer_stock(order_item)
+
 
     return JsonResponse({"estado":"ok"})
 
@@ -493,5 +496,5 @@ def get_notification(request):
 
 
 
-def cancel_orders(request):
-    json_data = json.loads(request.body)
+
+
