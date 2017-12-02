@@ -493,7 +493,9 @@ def get_notification(request):
 
     return JsonResponse({"estado": mensaje, "data": data})
 
-
+class ListPaymentType(generics.ListAPIView):
+    queryset = models.PaymentType.objects.all()
+    serializer_class = serializers.PaymentTypeSerializer
 
 
 

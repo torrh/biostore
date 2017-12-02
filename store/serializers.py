@@ -74,7 +74,7 @@ class PaymentTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = (
-            'title'
+            'title',
         )
         model = models.PaymentType
 

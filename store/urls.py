@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^updatestateorder/$',views.update_state_orders, name="Actualizar estado ordenes"),
 
 #CONSUMER
+    url(r'^payments/$', views.ListPaymentType.as_view(), name='get all payment type'),
     url(r'^createorder/$', views.create_order, name='create_order'),
     url(r'^orders/$', views.ListOrderItems.as_view(), name='list_orders'),
     url(r'^producers/$', views.give_all_producers, name='get all producers'),
