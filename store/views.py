@@ -70,15 +70,39 @@ def login(request):
         json_data = json.loads(request.body)
         email = json_data['email']
         password = json_data['password']
-        consumer_bd = Consumer.objects.get(email=email)
-        if consumer_bd.password == password:
-            mensaje = 'ok'
-            data = {'name': consumer_bd.name,
+        try:
+            consumer_bd = Consumer.objects.get(email=email)
+        except Consumer.DoesNotExist:
+            consumer_bd = None
+
+        try:
+            producer_bd = Producer.objects.get(email=email)
+        except Producer.DoesNotExist:
+            producer_bd = None
+
+
+        if consumer_bd:
+            if consumer_bd.password == password:
+                mensaje = 'ok'
+                data = {
+                    'id': consumer_bd.id,
+                    'name': consumer_bd.name,
                     'last_name': consumer_bd.last_name,
                     'email': email,
                     'address': consumer_bd.address,
                     'phone_number': consumer_bd.phone_number
                     }
+        if producer_bd:
+            if producer_bd.password == password:
+                mensaje = 'ok'
+                data = {
+                'id': producer_bd.id,
+                'name': producer_bd.name,
+                'last_name': producer_bd.last_name,
+                'email': email,
+                'address': producer_bd.address,
+                'phone_number': producer_bd.phone_number
+            }
     return JsonResponse({"estado": mensaje, "data": data})
 
 
