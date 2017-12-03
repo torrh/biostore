@@ -432,7 +432,6 @@ def update_state_orders(request):
             for item in order_item:
                 item.state = 'ENTREGADA'
                 item.save()
-                update_offer_stock(item)
         for canceled in canceledIds:
             cuid = canceled['id']
             order_items = models.Order_Item.objects.filter(order_id=cuid)
@@ -518,7 +517,9 @@ def get_notification(request):
 
     return JsonResponse({"estado": mensaje, "data": data})
 
-
+class ListPaymentType(generics.ListAPIView):
+    queryset = models.PaymentType.objects.all()
+    serializer_class = serializers.PaymentTypeSerializer
 
 
 
